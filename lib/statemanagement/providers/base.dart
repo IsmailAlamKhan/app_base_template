@@ -1,16 +1,14 @@
-import 'dart:convert';
-
 import 'package:get/get_connect/connect.dart';
 import 'package:getx_starter/statemanagement/statemanagement.dart';
 
-enum CudState {
+enum CurdState {
   Add,
   Update,
   Delete,
 }
 
 abstract class BaseProvider<T extends BaseModel> extends GetConnect {
-  ///TODO API Address
+  ///TODO Own API Address
   final String apiAddress = '';
   @override
   void onInit() {
@@ -18,13 +16,11 @@ abstract class BaseProvider<T extends BaseModel> extends GetConnect {
     super.onInit();
   }
 
-  Future<List<T>> getList(
+  Future<List<Map<String, dynamic>>> getList(
     String url,
-    Decoder<T> decoder,
   ) async {
     final Response res = await get(
       url,
-      decoder: decoder,
     );
     if (res.status.hasError) {
       return Future.error(res.statusText);
@@ -33,28 +29,28 @@ abstract class BaseProvider<T extends BaseModel> extends GetConnect {
     }
   }
 
-  Future<String> cud(CudState cudState, String url, {T data, int id}) async {
+  Future<String> cud(CurdState curdState, String url, {T data, int id}) async {
     Response res;
-    switch (cudState) {
-      case CudState.Add:
+    switch (curdState) {
+      case CurdState.Add:
         res = await post(
           url,
           data.toJson(),
         );
         break;
-      case CudState.Update:
+      case CurdState.Update:
         res = await put(
           url,
           data.toJson(),
         );
         break;
-      case CudState.Delete:
+      case CurdState.Delete:
         res = await delete(
           "$url?id=$id",
         );
         break;
       default:
-        return Future.error('No cudState');
+        return Future.error('No curdState');
         break;
     }
     if (res.hasError) {
