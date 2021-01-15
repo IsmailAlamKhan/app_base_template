@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:getx_starter/statemanagement/statemanagement.dart';
 
 abstract class BaseController<T extends BaseModel> extends GetxController

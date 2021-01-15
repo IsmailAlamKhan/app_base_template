@@ -1,16 +1,45 @@
-# getx_starter
+# Getx Statemanagement template for any app
 
-A new Flutter project.
+Use this template as a base for your apps Statemanagement that uses Getx.
 
-## Getting Started
+There is a BaseController with StateMixin extend your controller with BaseController.
 
-This project is a starting point for a Flutter application.
+Your model should extend BaseModel.
 
-A few resources to get you started if this is your first Flutter project:
+Your model should look like this
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```
+class Model extends BaseModel {
+  int id;
+  Model({
+    this.id,
+  });
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  @override
+  Model.fromJson(Map<String, dynamic> json);
+
+  @override
+  void copyWith(newData) {}
+
+  @override
+  Map<String, dynamic> toJson() {}
+}
+```
+
+Controller
+
+````
+class MyController extends BaseController<BaseModel> {
+  @override
+  Future<void> addData(String url, BaseModel data) async {}
+
+  @override
+  Future<void> deleteData(String url, int id) async {}
+
+  @override
+  Future<void> fetchList(String url) async {}
+
+  @override
+  Future<void> updateData(String url, BaseModel data) async {}
+}```
+````
